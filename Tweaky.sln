@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tweaky", "Tweaky.csproj", "{EC691030-3F2F-48DB-83A0-5588A68FE403}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EC691030-3F2F-48DB-83A0-5588A68FE403}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC691030-3F2F-48DB-83A0-5588A68FE403}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC691030-3F2F-48DB-83A0-5588A68FE403}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC691030-3F2F-48DB-83A0-5588A68FE403}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BFCA6EE7-EFF6-49A1-B583-E446C4519164}
+	EndGlobalSection
+EndGlobal

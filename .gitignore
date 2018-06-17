@@ -1,0 +1,5 @@
+Publish/
+Bin/
+Obj/
+.vs/
+*.user
