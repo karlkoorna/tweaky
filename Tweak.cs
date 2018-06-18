@@ -1,12 +1,9 @@
 ﻿using Microsoft.Win32;
-using System;
-using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 
 class Tweak {
 
