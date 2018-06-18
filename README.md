@@ -1,2 +1,2 @@
-### Tweaky
-Windows 10 tweaker.
+# Tweaky
+A collection of useful tweaks for Windows 10.
