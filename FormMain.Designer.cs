@@ -130,6 +130,7 @@ partial class FormMain {
 			this.Controls.Add(this.DataGridViewTweaks);
 			this.Controls.Add(this.ComboBoxFilter);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("Icon")));
+			this.MinimumSize = new System.Drawing.Size(800, 400);
 			this.Name = "FormMain";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Tweaky";
