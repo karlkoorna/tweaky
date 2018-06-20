@@ -17,11 +17,11 @@ partial class FormMain {
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
 			this.DataGridViewTweaks = new System.Windows.Forms.DataGridView();
-			this.ColumnEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+			this.ComboBoxFilter = new System.Windows.Forms.ComboBox();
+			this.ColumnState = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.ColumnCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.ColumnDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.ComboBoxFilter = new System.Windows.Forms.ComboBox();
 			((System.ComponentModel.ISupportInitialize)(this.DataGridViewTweaks)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -40,7 +40,7 @@ partial class FormMain {
 			this.DataGridViewTweaks.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
 			this.DataGridViewTweaks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.DataGridViewTweaks.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnEnabled,
+            this.ColumnState,
             this.ColumnCategory,
             this.ColumnName,
             this.ColumnDescription});
@@ -72,16 +72,32 @@ partial class FormMain {
 			this.DataGridViewTweaks.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridViewTweaks_CellMouseDoubleClick);
 			this.DataGridViewTweaks.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.DataGridViewTweaks_RowPrePaint);
 			// 
-			// ColumnEnabled
+			// ComboBoxFilter
 			// 
-			this.ColumnEnabled.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-			this.ColumnEnabled.DataPropertyName = "Enabled";
-			this.ColumnEnabled.HeaderText = "";
-			this.ColumnEnabled.Name = "ColumnEnabled";
-			this.ColumnEnabled.ReadOnly = true;
-			this.ColumnEnabled.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.ColumnEnabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-			this.ColumnEnabled.Width = 27;
+			this.ComboBoxFilter.Dock = System.Windows.Forms.DockStyle.Top;
+			this.ComboBoxFilter.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.ComboBoxFilter.ItemHeight = 21;
+			this.ComboBoxFilter.Location = new System.Drawing.Point(0, 0);
+			this.ComboBoxFilter.Name = "ComboBoxFilter";
+			this.ComboBoxFilter.Size = new System.Drawing.Size(784, 29);
+			this.ComboBoxFilter.TabIndex = 2;
+			this.ComboBoxFilter.TabStop = false;
+			this.ComboBoxFilter.TextChanged += new System.EventHandler(this.ComboBoxFilter_TextChanged);
+			// 
+			// ColumnState
+			// 
+			this.ColumnState.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+			this.ColumnState.DataPropertyName = "State";
+			this.ColumnState.FalseValue = "Disabled";
+			this.ColumnState.HeaderText = "";
+			this.ColumnState.IndeterminateValue = "Indeterminate";
+			this.ColumnState.Name = "ColumnState";
+			this.ColumnState.ReadOnly = true;
+			this.ColumnState.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.ColumnState.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			this.ColumnState.ThreeState = true;
+			this.ColumnState.TrueValue = "Enabled";
+			this.ColumnState.Width = 27;
 			// 
 			// ColumnCategory
 			// 
@@ -109,18 +125,6 @@ partial class FormMain {
 			this.ColumnDescription.Name = "ColumnDescription";
 			this.ColumnDescription.ReadOnly = true;
 			// 
-			// ComboBoxFilter
-			// 
-			this.ComboBoxFilter.Dock = System.Windows.Forms.DockStyle.Top;
-			this.ComboBoxFilter.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.ComboBoxFilter.ItemHeight = 21;
-			this.ComboBoxFilter.Location = new System.Drawing.Point(0, 0);
-			this.ComboBoxFilter.Name = "ComboBoxFilter";
-			this.ComboBoxFilter.Size = new System.Drawing.Size(784, 29);
-			this.ComboBoxFilter.TabIndex = 2;
-			this.ComboBoxFilter.TabStop = false;
-			this.ComboBoxFilter.TextChanged += new System.EventHandler(this.ComboBoxFilter_TextChanged);
-			// 
 			// FormMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -129,7 +133,7 @@ partial class FormMain {
 			this.ClientSize = new System.Drawing.Size(784, 361);
 			this.Controls.Add(this.DataGridViewTweaks);
 			this.Controls.Add(this.ComboBoxFilter);
-			this.Icon = ((System.Drawing.Icon)(resources.GetObject("Icon")));
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MinimumSize = new System.Drawing.Size(800, 400);
 			this.Name = "FormMain";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -144,9 +148,8 @@ partial class FormMain {
 
 	private DataGridView DataGridViewTweaks;
 	private ComboBox ComboBoxFilter;
-	private DataGridViewCheckBoxColumn ColumnEnabled;
+	private DataGridViewCheckBoxColumn ColumnState;
 	private DataGridViewTextBoxColumn ColumnCategory;
 	private DataGridViewTextBoxColumn ColumnName;
 	private DataGridViewTextBoxColumn ColumnDescription;
-
 }

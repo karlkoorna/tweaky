@@ -11,7 +11,7 @@ class Tweak {
 	string Path { get; set; }
 	string WorkingDirectory { get; set; }
 
-	public bool Enabled { get; set; }
+	public string State { get; set; }
 	public string Category { get; set; }
 	public string Name { get; set; }
 	public string Description { get; set; }
@@ -21,7 +21,7 @@ class Tweak {
 		Path = path;
 		WorkingDirectory = System.IO.Path.GetFullPath(System.IO.Path.GetDirectoryName(path));
 		
-		Enabled = Status();
+		State = Status();
 		Category = path.Substring(7, path.Substring(7).IndexOf(@"\"));
 		Name = Read("Info", "Name");
 		Description = Read("Info", "Description");
@@ -44,28 +44,31 @@ class Tweak {
 		
 		ProcessStartInfo startInfo = new ProcessStartInfo() {
 			FileName = "cmd",
-			Arguments = "/C " + Read("Toggle", !Enabled ? "Enable" : "Disable").Replace("{0}", WorkingDirectory),
+			Arguments = "/C " + Read("Toggle", State == "Disabled" || State == "Indeterminate" ? "Enable" : "Disable").Replace("{0}", WorkingDirectory),
 			WorkingDirectory = WorkingDirectory,
 			CreateNoWindow = true,
 			UseShellExecute = false
 		};
 		
 		// Add environmental variable indicating new state to child process.
-		startInfo.EnvironmentVariables["TWEAKY"] = (Enabled ? 0 : 1).ToString();
+		startInfo.EnvironmentVariables["TWEAKY"] = (State == "Enabled" ? 0 : 1).ToString();
 
 		// Start and wait for script.
 		Process.Start(startInfo).WaitForExit();
 
 		// Update enabled state.
-		Enabled = Status();
+		State = Status();
 
 	}
 
 	/// <summary>
 	/// Run status script.
 	/// </summary>
-	public bool Status() {
-		
+	public string Status() {
+
+		// Return indeterminate if status not configured.
+		if (Read("Status", "Command") == "") return "Indeterminate"; 
+
 		Process process = Process.Start(new ProcessStartInfo("cmd", "/C " + Read("Status", "Command")) {
 			WorkingDirectory = WorkingDirectory,
 			CreateNoWindow = true,
@@ -76,7 +79,7 @@ class Tweak {
 		process.Start();
 		process.WaitForExit();
 
-		return (new Regex(Read("Status", "Value"))).IsMatch(Read("Status", "Check") == "output" ? process.StandardOutput.ReadToEnd() : process.ExitCode.ToString());
+		return (new Regex(Read("Status", "Value"))).IsMatch(Read("Status", "Check") == "output" ? process.StandardOutput.ReadToEnd() : process.ExitCode.ToString()) ? "Enabled" : "Disabled";
 		
 	}
 	

@@ -48,7 +48,7 @@ partial class FormMain : Form {
 	// Recolor rows if dirty.
 	private void DataGridViewTweaks_RowPrePaint(object s, DataGridViewRowPrePaintEventArgs e) {
 
-		foreach (DataGridViewRow row in DataGridViewTweaks.Rows) if (((Tweak) row.DataBoundItem).Enabled) {
+		foreach (DataGridViewRow row in DataGridViewTweaks.Rows) if (((Tweak) row.DataBoundItem).State == "Enabled") {
 			row.DefaultCellStyle.BackColor = Color.SeaGreen;
 			row.DefaultCellStyle.ForeColor = Color.White;
 		} else {
