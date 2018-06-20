@@ -1,7 +1,7 @@
 # Tweaky
 A collection of useful tweaks for Windows 10.
 
-Tweaks are defined by INI files stored in a category folder (including its subfolders) in the Tweaky folder next to the executable. Tweaks must be manually copied from the `Tweaks` folder to the `Tweaky` folder next to the executable.
+Tweaks are defined by INI files stored in a category folder (including its subfolders) in the Tweaky folder next to the executable. Included tweaks must be manually copied from the `Tweaks` folder to the `Tweaky` folder next to the executable.
 
 Example:
 
