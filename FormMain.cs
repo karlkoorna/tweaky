@@ -41,8 +41,8 @@ partial class FormMain : Form {
 
 	// Filter tweaks.
 	void ComboBoxFilter_TextChanged(object sender, EventArgs e) {
-		string query = ComboBoxFilter.Text.Trim();
-		DataGridViewTweaks.DataSource = query == "" ? tweaks : new BindingList<Tweak>(tweaks.Where((tweak) => tweak.Category.Contains(query) || tweak.Name.Contains(query) || tweak.Description.Contains(query)).ToList());
+		string query = ComboBoxFilter.Text.Trim().ToLower();
+		DataGridViewTweaks.DataSource = query == "" ? tweaks : new BindingList<Tweak>(tweaks.Where((tweak) => tweak.Category.ToLower().Contains(query) || tweak.Name.ToLower().Contains(query) || tweak.Description.ToLower().Contains(query)).ToList());
 	}
 
 	// Recolor rows if dirty.
