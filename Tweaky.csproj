@@ -117,11 +117,7 @@
 	<ItemGroup>
 		<Folder Include="Tweaks\" />
 		<File Include="README.md" />
-	<File Include=".gitignore" />
+		<File Include=".gitignore" />
 	</ItemGroup>
 	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-	<PropertyGroup>
-		<PostBuildEvent>RD /S /Q "$(TargetDir)Tweaky"
-XCOPY /S "$(ProjectDir)Tweaks" "$(TargetDir)Tweaky\"</PostBuildEvent>
-	</PropertyGroup>
 </Project>
