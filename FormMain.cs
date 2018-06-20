@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Security.Principal;
 using System.Windows.Forms;
 
 partial class FormMain : Form {
@@ -15,12 +14,6 @@ partial class FormMain : Form {
 	}
 
 	void FormMain_Load(object s, EventArgs e) {
-
-		// Check for administrative privilages.
-		if (!(new WindowsPrincipal(WindowsIdentity.GetCurrent())).IsInRole(WindowsBuiltInRole.Administrator)) {
-			MessageBox.Show("Administrative privilages required.", "Tweaky", MessageBoxButtons.OK, MessageBoxIcon.Information);
-			Application.Exit();
-		}
 
 		// Bind tweak list to view.
 		DataGridViewTweaks.AutoGenerateColumns = false;
