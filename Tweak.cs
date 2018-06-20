@@ -52,7 +52,7 @@ class Tweak {
 			UseShellExecute = false
 		};
 		
-		// Add environmental variable indicating state to child processes.
+		// Add environmental variable indicating new state to child process.
 		startInfo.EnvironmentVariables["TWEAKY"] = (Enabled ? 0 : 1).ToString();
 
 		// Start and wait for script.
@@ -67,42 +67,19 @@ class Tweak {
 	/// Run status script.
 	/// </summary>
 	public bool Status() {
+		
+		Process process = Process.Start(new ProcessStartInfo("cmd", "/C " + Read("Status", "Command")) {
+			WorkingDirectory = WorkingDirectory,
+			CreateNoWindow = true,
+			UseShellExecute = false,,
+			RedirectStandardOutput = true
+		});
+		
+		process.Start();
+		process.WaitForExit();
 
-		switch (Read("Status", "Type")) {
-			
-			case "registry":
-
-				object value = Registry.GetValue(Read("Status", "Path"), Read("Status", "Key"), null);
-
-				if (value == null) return false;
-
-				return (new Regex(Read("Status", "Value"))).IsMatch(value.ToString());
-
-			case "file":
-
-				string path = Read("Status", "Path");
-
-				if (!File.Exists(path)) return false;
-
-				return (new Regex(Read("Status", "Value"))).IsMatch(File.ReadAllText(path));
-
-			case "script":
-
-				Process process = Process.Start(new ProcessStartInfo("cmd", "/C " + Read("Status", "Command")) {
-					WorkingDirectory = WorkingDirectory,
-					CreateNoWindow = true,
-					UseShellExecute = false
-				});
-
-				process.Start();
-				process.WaitForExit();
-
-				return process.ExitCode.ToString() == Read("Status", "Value");
-
-		}
-
-		return false;
-
+		return (new Regex(Read("Status", "Value"))).IsMatch(Read("Status", "Check") == "output" ? process.StandardOutput.ReadToEnd() : process.ExitCode.ToString());
+		
 	}
 	
 }
