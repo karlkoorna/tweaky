@@ -71,7 +71,7 @@ class Tweak {
 		Process process = Process.Start(new ProcessStartInfo("cmd", "/C " + Read("Status", "Command")) {
 			WorkingDirectory = WorkingDirectory,
 			CreateNoWindow = true,
-			UseShellExecute = false,,
+			UseShellExecute = false,
 			RedirectStandardOutput = true
 		});
 		
