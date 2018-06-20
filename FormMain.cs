@@ -49,11 +49,11 @@ partial class FormMain : Form {
 	private void DataGridViewTweaks_RowPrePaint(object s, DataGridViewRowPrePaintEventArgs e) {
 
 		foreach (DataGridViewRow row in DataGridViewTweaks.Rows) if (((Tweak) row.DataBoundItem).Enabled) {
-			row.DefaultCellStyle.BackColor = Color.MediumSeaGreen;
-			row.DefaultCellStyle.SelectionBackColor = Color.SeaGreen;
+			row.DefaultCellStyle.BackColor = Color.SeaGreen;
+			row.DefaultCellStyle.ForeColor = Color.White;
 		} else {
 			row.DefaultCellStyle.BackColor = Color.WhiteSmoke;
-			row.DefaultCellStyle.SelectionBackColor = Color.DodgerBlue;
+			row.DefaultCellStyle.ForeColor = Color.Black;
 		}
 
 	}
