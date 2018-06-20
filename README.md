@@ -36,7 +36,7 @@ Disable=disabe.bat
 
 **Status**
 
-The `Status` section defines the console command whose output (`output`) or exit code (`code`) to be checked against the provided Regex value. If there is a match the tweak will be considered as enabled.
+The `Status` section defines the console command whose output (`output`) or exit code (`code`) to be checked against the provided Regex value. If there is a match the tweak will be considered as enabled. If section not present the tweak will be treated as not toggleable and can only be enabled.
 
 ```ini
 [Status]
