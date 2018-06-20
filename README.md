@@ -18,8 +18,8 @@ The `Info` section makes a tweak recognizable in the UI.
 
 ```ini
 [Info]
-Name=Disable ducking
-Description=Disable automatic volume adjustment.
+Name=My amazing tweak
+Description=Disables an annoying feature.
 ```
 
 **Toggle**
@@ -30,13 +30,13 @@ The `Toggle` section defines console commands to be executed on toggle. Before e
 
 ```ini
 [Toggle]
-Enable=regedit /S "{0}/enable.reg"
-Disable=regedit /S "{0}/disable.reg"
+Enable=enable.bat
+Disable=disabe.bat
 ```
 
 **Status**
 
-The `Status` section defines the console command whose output (`output`) or exit code (`code`) to be checked against the provided Regex value.
+The `Status` section defines the console command whose output (`output`) or exit code (`code`) to be checked against the provided Regex value. If there is a match the tweak will be considered as enabled.
 
 ```ini
 [Status]
