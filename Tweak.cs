@@ -73,14 +73,15 @@ class Tweak {
 		Process process = Process.Start(new ProcessStartInfo("cmd", "/C " + Read("Status", "Command")) {
 			WorkingDirectory = WorkingDirectory,
 			CreateNoWindow = true,
-			UseShellExecute = false
+			UseShellExecute = false,
+			RedirectStandardOutput = true
 		});
 		
 		// Wait for process to finish.
 		process.WaitForExit();
-
+		
 		// Compare output to Regex.
-		return (new Regex(Read("Status", "Value"))).IsMatch(Read("Status", "Check") == "output" ? process.StandardOutput.ReadToEnd() : process.ExitCode.ToString()) ? "Enabled" : "Disabled";
+		return (new Regex(Read("Status", "Value"))).IsMatch(Read("Status", "Check") == "output" ? process.StandardOutput.ReadToEnd().Replace(@"\r\n", @"\n") : process.ExitCode.ToString()) ? "Enabled" : "Disabled";
 		
 	}
 	
