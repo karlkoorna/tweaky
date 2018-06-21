@@ -81,7 +81,7 @@ class Tweak {
 		process.WaitForExit();
 		
 		// Compare output to Regex.
-		return (new Regex(Read("Status", "Value"))).IsMatch(Read("Status", "Check") == "output" ? process.StandardOutput.ReadToEnd().Replace(@"\r\n", @"\n") : process.ExitCode.ToString()) ? "Enabled" : "Disabled";
+		return (new Regex(Read("Status", "Value"))).IsMatch(Read("Status", "Check") == "output" ? process.StandardOutput.ReadToEnd().Replace("\r\n", "\n") : process.ExitCode.ToString()) ? "Enabled" : "Disabled";
 		
 	}
 	
