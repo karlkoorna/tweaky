@@ -69,16 +69,17 @@ class Tweak {
 		// Return indeterminate if status not configured.
 		if (Read("Status", "Command") == "") return "Indeterminate"; 
 
+		// Start process.
 		Process process = Process.Start(new ProcessStartInfo("cmd", "/C " + Read("Status", "Command")) {
 			WorkingDirectory = WorkingDirectory,
 			CreateNoWindow = true,
-			UseShellExecute = false,
-			RedirectStandardOutput = true
+			UseShellExecute = false
 		});
 		
-		process.Start();
+		// Wait for process to finish.
 		process.WaitForExit();
 
+		// Compare output to Regex.
 		return (new Regex(Read("Status", "Value"))).IsMatch(Read("Status", "Check") == "output" ? process.StandardOutput.ReadToEnd() : process.ExitCode.ToString()) ? "Enabled" : "Disabled";
 		
 	}
