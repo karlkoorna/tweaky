@@ -47,5 +47,5 @@ Value=1
 
 ### Known issues
 
-* Disabling a tweak revert's to Windows' factory setting.
+* Disabling a tweak reverts to Windows' factory setting.
 * Unsortable columns.
