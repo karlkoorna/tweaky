@@ -1,6 +1,8 @@
 # Tweaky
 A collection of useful tweaks for Windows 10.
 
+## Usage
+
 Tweaks are defined by INI files stored in a category folder (including its subfolders) in the Tweaky folder next to the executable. Included tweaks must be manually copied from the `Tweaks` folder to the `Tweaky` folder next to the executable.
 
 Example:
@@ -45,7 +47,7 @@ Check=code
 Value=1
 ```
 
-### Known issues
+## Known issues
 
 * Disabling a tweak reverts to Windows' factory setting.
 * Unsortable columns.
