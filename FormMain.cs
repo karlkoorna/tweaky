@@ -45,7 +45,7 @@ partial class FormMain : Form {
 		DataGridViewTweaks.DataSource = query == "" ? tweaks : new BindingList<Tweak>(tweaks.Where((tweak) => tweak.Category.ToLower().Contains(query) || tweak.Name.ToLower().Contains(query) || tweak.Description.ToLower().Contains(query)).ToList());
 	}
 
-	// Recolor rows if dirty.
+	// Recolor row if dirty.
 	private void DataGridViewTweaks_RowPrePaint(object s, DataGridViewRowPrePaintEventArgs e) {
 
 		foreach (DataGridViewRow row in DataGridViewTweaks.Rows) if (((Tweak) row.DataBoundItem).State == "Enabled") {
