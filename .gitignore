@@ -1,5 +1,4 @@
-Publish/
-Bin/
+Build/
 Obj/
 .vs/
 *.user
