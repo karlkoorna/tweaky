@@ -1,4 +1,4 @@
-Build/
-Obj/
 .vs/
+Bin/
+Obj/
 *.user
