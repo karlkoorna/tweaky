@@ -1,5 +1,5 @@
 # Tweaky
-A collection of useful tweaks for Windows 10.
+Windows 10 tweaker.
 
 ## Usage
 
