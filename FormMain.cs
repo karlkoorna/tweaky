@@ -13,7 +13,7 @@ partial class FormMain : Form {
 		InitializeComponent();
 	}
 
-	void FormMain_Load(object s, EventArgs e) {
+	void FormMain_Load(object sender, EventArgs e) {
 
 		// Bind tweak list to view.
 		DataGridViewTweaks.AutoGenerateColumns = false;
@@ -46,7 +46,7 @@ partial class FormMain : Form {
 	}
 
 	// Recolor row if dirty.
-	private void DataGridViewTweaks_RowPrePaint(object s, DataGridViewRowPrePaintEventArgs e) {
+	private void DataGridViewTweaks_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e) {
 
 		foreach (DataGridViewRow row in DataGridViewTweaks.Rows) if (((Tweak) row.DataBoundItem).State == "Enabled") {
 			row.DefaultCellStyle.BackColor = Color.SeaGreen;
