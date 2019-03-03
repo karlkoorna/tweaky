@@ -6,7 +6,6 @@ static class Program {
 	
 	[STAThread]
 	static void Main() {
-
 		// Enable visual styles.
 		Application.EnableVisualStyles();
 
@@ -18,7 +17,6 @@ static class Program {
 
 		// Display application window.
 		Application.Run(new FormMain());
-
 	}
 
 }

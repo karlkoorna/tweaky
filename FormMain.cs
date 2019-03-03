@@ -14,7 +14,6 @@ partial class FormMain : Form {
 	}
 
 	void FormMain_Load(object sender, EventArgs e) {
-
 		// Bind tweak list to view.
 		DataGridViewTweaks.AutoGenerateColumns = false;
 		DataGridViewTweaks.DataSource = tweaks;
@@ -31,7 +30,6 @@ partial class FormMain : Form {
 			if (!ComboBoxFilter.Items.Contains(tweak.Category)) ComboBoxFilter.Items.Add(tweak.Category);
 
 		}
-
 	}
 
 	// Toggle tweak.
@@ -47,7 +45,6 @@ partial class FormMain : Form {
 
 	// Recolor row if dirty.
 	private void DataGridViewTweaks_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e) {
-
 		foreach (DataGridViewRow row in DataGridViewTweaks.Rows) if (((Tweak) row.DataBoundItem).State == "Enabled") {
 			row.DefaultCellStyle.BackColor = Color.SeaGreen;
 			row.DefaultCellStyle.ForeColor = Color.White;
@@ -55,7 +52,6 @@ partial class FormMain : Form {
 			row.DefaultCellStyle.BackColor = Color.WhiteSmoke;
 			row.DefaultCellStyle.ForeColor = Color.Black;
 		}
-
 	}
 
 }
