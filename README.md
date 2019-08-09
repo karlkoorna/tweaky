@@ -28,7 +28,7 @@ Description=Disables an annoying feature.
 
 The `Toggle` section defines console commands to be executed on toggle. Before execution:
 1. `{0}` will be replaced with the full path of the current directory.
-2. Environmental variable `TWEAKY` with value `0` or `1` indicating new state will be added to the child process.
+2. Environmental variable `TWEAKY` with value `0` or `1` indicating new state will be set for the started process.
 
 ```ini
 [Toggle]
@@ -49,5 +49,5 @@ Value=1
 
 ## Known issues
 
-* Disabling a tweak reverts to Windows' factory setting.
+* Disabling a tweak reverts to a defined (not previous) setting.
 * Unsortable columns.
