@@ -23,12 +23,10 @@ partial class FormMain : Form {
 
 		// Populate tweak list from data folder.
 		foreach (string path in Directory.EnumerateFiles("Tweaky", "*.ini", SearchOption.AllDirectories)) {
-
 			Tweak tweak = new Tweak(path);
 			tweaks.Add(tweak);
 
 			if (!ComboBoxFilter.Items.Contains(tweak.Category)) ComboBoxFilter.Items.Add(tweak.Category);
-
 		}
 	}
 

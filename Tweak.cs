@@ -41,7 +41,7 @@ class Tweak {
 	public void Toggle() {
 		ProcessStartInfo startInfo = new ProcessStartInfo() {
 			FileName = "cmd",
-			Arguments = "/C " + Read("Toggle", State == "Disabled" || State == "Indeterminate" ? "Enable" : "Disable").Replace("{0}", WorkingDirectory),
+			Arguments = "/C " + Read("Toggle", State == "Disabled" || State == "Indeterminate" ? "Enable" : "Disable").Replace("{}", WorkingDirectory),
 			WorkingDirectory = WorkingDirectory,
 			CreateNoWindow = true,
 			UseShellExecute = false

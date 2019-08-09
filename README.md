@@ -27,7 +27,7 @@ Description=Disables an annoying feature.
 **Toggle**
 
 The `Toggle` section defines console commands to be executed on toggle. Before execution:
-1. `{0}` will be replaced with the full path of the current directory.
+1. `{}` will be replaced with an absolute path to the script directory.
 2. Environmental variable `TWEAKY` with value `0` or `1` indicating new state will be set for the started process.
 
 ```ini
