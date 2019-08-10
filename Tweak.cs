@@ -4,7 +4,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 
 class Tweak {
-
+	
 	[DllImport("kernel32")]
 	static extern int GetPrivateProfileString(string section, string key, string defaultValue, StringBuilder value, int size, string path);
 
@@ -19,7 +19,7 @@ class Tweak {
 	public Tweak(string path) {
 		Path = path;
 		WorkingDirectory = System.IO.Path.GetFullPath(System.IO.Path.GetDirectoryName(path));
-		
+
 		State = Status();
 		Category = path.Substring(7, path.Substring(7).IndexOf(@"\"));
 		Name = Read("Info", "Name");
@@ -46,7 +46,7 @@ class Tweak {
 			CreateNoWindow = true,
 			UseShellExecute = false
 		};
-		
+
 		// Add environmental variable indicating new state to child process.
 		startInfo.EnvironmentVariables["TWEAKY"] = (State == "Enabled" ? 0 : 1).ToString();
 
@@ -71,12 +71,12 @@ class Tweak {
 			UseShellExecute = false,
 			RedirectStandardOutput = true
 		});
-		
+
 		// Wait for process to finish.
 		process.WaitForExit();
-		
+
 		// Compare output to Regex.
 		return (new Regex(Read("Status", "Value"))).IsMatch(Read("Status", "Check") == "output" ? process.StandardOutput.ReadToEnd().Replace("\r\n", "\n") : process.ExitCode.ToString()) ? "Enabled" : "Disabled";
 	}
-	
+
 }
