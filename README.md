@@ -1,5 +1,5 @@
 # Tweaky
-GUI for Windows 10 tweaks.
+GUI for Windows tweaks.
 
 ## Usage
 
