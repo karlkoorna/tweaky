@@ -41,6 +41,11 @@ partial class FormMain : Form {
 		DataGridViewTweaks.DataSource = query == "" ? tweaks : new BindingList<Tweak>(tweaks.Where((tweak) => tweak.Category.ToLower().Contains(query) || tweak.Name.ToLower().Contains(query) || tweak.Description.ToLower().Contains(query)).ToList());
 	}
 
+	// Show category dropdown with keyboard shortcut.
+	private void ComboBoxFilter_KeyDown(object sender, KeyEventArgs e) {
+		if (e.Control && e.KeyCode == Keys.Space) ComboBoxFilter.DroppedDown = true;
+	}
+
 	// Recolor row if dirty.
 	private void DataGridViewTweaks_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e) {
 		foreach (DataGridViewRow row in DataGridViewTweaks.Rows) if (((Tweak) row.DataBoundItem).State == "Enabled") {
