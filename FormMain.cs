@@ -15,11 +15,10 @@ partial class FormMain : Form {
 
 	void FormMain_Load(object sender, EventArgs e) {
 		// Bind tweak list to view.
-		DataGridViewTweaks.AutoGenerateColumns = false;
 		DataGridViewTweaks.DataSource = tweaks;
-		
-		// Ensure data folder exists.
-		Directory.CreateDirectory("Tweaky");
+
+		// Make columns sortable.
+		foreach (DataGridViewColumn column in DataGridViewTweaks.Columns) column.SortMode = DataGridViewColumnSortMode.Automatic;
 
 		// Populate tweak list from data folder.
 		foreach (string path in Directory.EnumerateFiles("Tweaky", "*.ini", SearchOption.AllDirectories)) {
@@ -35,7 +34,7 @@ partial class FormMain : Form {
 		if (e.RowIndex != -1) tweaks[e.RowIndex].Toggle();
 	}
 
-	// Filter tweaks.
+	// Search tweaks.
 	void ComboBoxFilter_TextChanged(object sender, EventArgs e) {
 		string query = ComboBoxFilter.Text.Trim().ToLower();
 		DataGridViewTweaks.DataSource = query == "" ? tweaks : new BindingList<Tweak>(tweaks.Where((tweak) => tweak.Category.ToLower().Contains(query) || tweak.Name.ToLower().Contains(query) || tweak.Description.ToLower().Contains(query)).ToList());

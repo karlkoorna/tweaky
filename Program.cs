@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Security.Principal;
 using System.Windows.Forms;
 
@@ -14,7 +15,10 @@ static class Program {
 			MessageBox.Show("Administrative privilages required.", "Tweaky", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			return;
 		}
-		
+
+		// Ensure data folder exists.
+		Directory.CreateDirectory("Tweaky");
+
 		// Display application window.
 		Application.Run(new FormMain());
 	}
