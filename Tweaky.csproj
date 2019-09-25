@@ -122,4 +122,9 @@
     <Folder Include="Tweaks\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>rmdir /s /q "$(ProjectDir)$(OutDir)Tweaky"
+mkdir "$(ProjectDir)$(OutDir)Tweaky"
+xcopy /s "$(ProjectDir)Tweaks" "$(ProjectDir)$(OutDir)Tweaky"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

@@ -3,7 +3,7 @@ GUI for Windows tweaks.
 
 ## Usage
 
-Tweaks are defined by INI files stored in a category folder (including its subfolders) in the Tweaky folder next to the executable. Included tweaks must be manually copied from `Tweaks/` to `Tweaky/` next to the executable.
+Tweaks are defined by INI files stored in a category folder (including its subfolders) in the Tweaky folder next to the executable.
 
 Example:
 
@@ -46,8 +46,3 @@ Command=status.bat
 Check=code
 Value=1
 ```
-
-## Known issues
-
-* Disabling a tweak reverts to a defined (not previous) setting.
-* Unsortable columns.
