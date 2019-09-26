@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 partial class FormMain : Form {
 
-	BindingList<Tweak> tweaks = new BindingList<Tweak>();
+	SortableBindingList<Tweak> tweaks = new SortableBindingList<Tweak>();
 
 	public FormMain() {
 		InitializeComponent();
@@ -16,7 +16,7 @@ partial class FormMain : Form {
 	void FormMain_Load(object sender, EventArgs e) {
 		// Bind tweak list to view.
 		DataGridViewTweaks.DataSource = tweaks;
-
+		
 		// Make columns sortable.
 		foreach (DataGridViewColumn column in DataGridViewTweaks.Columns) column.SortMode = DataGridViewColumnSortMode.Automatic;
 
@@ -25,8 +25,10 @@ partial class FormMain : Form {
 			Tweak tweak = new Tweak(path);
 			tweaks.Add(tweak);
 
-			if (!ComboBoxFilter.Items.Contains(tweak.Category)) ComboBoxFilter.Items.Add(tweak.Category);
+			if (!ComboBoxSearch.Items.Contains(tweak.Category)) ComboBoxSearch.Items.Add(tweak.Category);
 		}
+
+		ComboBoxSearch.Select();
 	}
 
 	// Toggle tweak.
@@ -35,14 +37,34 @@ partial class FormMain : Form {
 	}
 
 	// Search tweaks.
-	void ComboBoxFilter_TextChanged(object sender, EventArgs e) {
-		string query = ComboBoxFilter.Text.Trim().ToLower();
+	void ComboBoxSearch_TextChanged(object sender, EventArgs e) {
+		string query = ComboBoxSearch.Text.Trim().ToLower();
 		DataGridViewTweaks.DataSource = query == "" ? tweaks : new BindingList<Tweak>(tweaks.Where((tweak) => tweak.Category.ToLower().Contains(query) || tweak.Name.ToLower().Contains(query) || tweak.Description.ToLower().Contains(query)).ToList());
 	}
 
-	// Show category dropdown with keyboard shortcut.
-	private void ComboBoxFilter_KeyDown(object sender, KeyEventArgs e) {
-		if (e.Control && e.KeyCode == Keys.Space) ComboBoxFilter.DroppedDown = true;
+	// Add keyboard shortcuts to search.
+	private void ComboBoxSearch_KeyDown(object sender, KeyEventArgs e) {
+		if (e.KeyCode == Keys.Tab) { // Move focus to tweaks.
+			DataGridViewTweaks.Focus();
+			e.SuppressKeyPress = true;
+		} else if (e.Control && e.KeyCode == Keys.Space) { // Show category dropdown.
+			ComboBoxSearch.DroppedDown = true;
+			e.SuppressKeyPress = true;
+		}
+	}
+
+	// Add keyboard shortcuts to tweaks.
+	private void DataGridViewTweaks_KeyDown(object sender, KeyEventArgs e) {
+		int index = DataGridViewTweaks.CurrentCell.RowIndex;
+
+		if (e.KeyCode == Keys.Tab) { // Move focus to search.
+			ComboBoxSearch.Select();
+			e.Handled = true;
+		} else if (e.KeyCode == Keys.Space || e.KeyCode == Keys.Enter) { // Toggle tweak.
+			((Tweak) DataGridViewTweaks.CurrentRow.DataBoundItem).Toggle();
+			DataGridViewTweaks.Refresh();
+			e.Handled = true;
+		}
 	}
 
 	// Recolor row if dirty.
@@ -54,6 +76,12 @@ partial class FormMain : Form {
 			row.DefaultCellStyle.BackColor = Color.WhiteSmoke;
 			row.DefaultCellStyle.ForeColor = Color.Black;
 		}
+	}
+
+	// Hide focused cell border.
+	private void DataGridViewTweaks_CellPainting(object sender, DataGridViewCellPaintingEventArgs e) {
+		e.Paint(e.CellBounds, DataGridViewPaintParts.All & ~DataGridViewPaintParts.Focus);
+		e.Handled = true;
 	}
 
 }

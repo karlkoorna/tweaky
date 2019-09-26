@@ -17,11 +17,11 @@ partial class FormMain {
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
 			this.DataGridViewTweaks = new System.Windows.Forms.DataGridView();
-			this.ComboBoxFilter = new System.Windows.Forms.ComboBox();
 			this.ColumnState = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.ColumnCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.ColumnDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.ComboBoxSearch = new System.Windows.Forms.ComboBox();
 			((System.ComponentModel.ISupportInitialize)(this.DataGridViewTweaks)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -70,19 +70,9 @@ partial class FormMain {
 			this.DataGridViewTweaks.TabIndex = 3;
 			this.DataGridViewTweaks.TabStop = false;
 			this.DataGridViewTweaks.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridViewTweaks_CellMouseDoubleClick);
+			this.DataGridViewTweaks.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DataGridViewTweaks_CellPainting);
 			this.DataGridViewTweaks.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.DataGridViewTweaks_RowPrePaint);
-			// 
-			// ComboBoxFilter
-			// 
-			this.ComboBoxFilter.Dock = System.Windows.Forms.DockStyle.Top;
-			this.ComboBoxFilter.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.ComboBoxFilter.ItemHeight = 21;
-			this.ComboBoxFilter.Location = new System.Drawing.Point(0, 0);
-			this.ComboBoxFilter.Name = "ComboBoxFilter";
-			this.ComboBoxFilter.Size = new System.Drawing.Size(784, 29);
-			this.ComboBoxFilter.TabIndex = 2;
-			this.ComboBoxFilter.TabStop = false;
-			this.ComboBoxFilter.TextChanged += new System.EventHandler(this.ComboBoxFilter_TextChanged);
+			this.DataGridViewTweaks.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DataGridViewTweaks_KeyDown);
 			// 
 			// ColumnState
 			// 
@@ -125,6 +115,19 @@ partial class FormMain {
 			this.ColumnDescription.Name = "ColumnDescription";
 			this.ColumnDescription.ReadOnly = true;
 			// 
+			// ComboBoxSearch
+			// 
+			this.ComboBoxSearch.Dock = System.Windows.Forms.DockStyle.Top;
+			this.ComboBoxSearch.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.ComboBoxSearch.ItemHeight = 21;
+			this.ComboBoxSearch.Location = new System.Drawing.Point(0, 0);
+			this.ComboBoxSearch.Name = "ComboBoxSearch";
+			this.ComboBoxSearch.Size = new System.Drawing.Size(784, 29);
+			this.ComboBoxSearch.TabIndex = 2;
+			this.ComboBoxSearch.TabStop = false;
+			this.ComboBoxSearch.TextChanged += new System.EventHandler(this.ComboBoxSearch_TextChanged);
+			this.ComboBoxSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ComboBoxSearch_KeyDown);
+			// 
 			// FormMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -132,7 +135,7 @@ partial class FormMain {
 			this.BackColor = System.Drawing.Color.WhiteSmoke;
 			this.ClientSize = new System.Drawing.Size(784, 361);
 			this.Controls.Add(this.DataGridViewTweaks);
-			this.Controls.Add(this.ComboBoxFilter);
+			this.Controls.Add(this.ComboBoxSearch);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MinimumSize = new System.Drawing.Size(800, 400);
 			this.Name = "FormMain";
@@ -147,7 +150,7 @@ partial class FormMain {
 	#endregion
 
 	private DataGridView DataGridViewTweaks;
-	private ComboBox ComboBoxFilter;
+	private ComboBox ComboBoxSearch;
 	private DataGridViewCheckBoxColumn ColumnState;
 	private DataGridViewTextBoxColumn ColumnCategory;
 	private DataGridViewTextBoxColumn ColumnName;
