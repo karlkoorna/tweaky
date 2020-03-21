@@ -26,9 +26,9 @@ Description=Disables an annoying feature.
 
 **Toggle**
 
-The `Toggle` section defines console commands to be executed on toggle. Before execution:
+The `Toggle` section defines commands to be executed on toggle. Before execution:
 1. `{}` will be replaced with an absolute path to the script directory.
-2. Environmental variable `TWEAKY` with value `0` or `1` indicating new state will be set for the started process.
+2. Environment variable `TWEAKY` with value `0` or `1` indicating new state will be set for the started process.
 
 ```ini
 [Toggle]
@@ -38,7 +38,7 @@ Disable=disabe.bat
 
 **Status**
 
-The `Status` section defines the console command which's output (`output`) or exit code (`code`) to be checked against the provided Regex value. If there is a match the tweak will be considered enabled. If the section is not present the tweak will be treated not toggleable and can only be enabled.
+The `Status` section defines the tweak's status in the UI. The command's output (`output`) or exit code (`code`) will be checked against the provided Regex value. If there is a match the tweak will be considered enabled. If the section is not present the tweak will be treated not toggleable and can only be enabled.
 
 ```ini
 [Status]
