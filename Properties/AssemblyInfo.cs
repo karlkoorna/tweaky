@@ -2,7 +2,7 @@
 
 [assembly: AssemblyTitle("Tweaky")]
 [assembly: AssemblyProduct("Tweaky")]
-[assembly: AssemblyDescription("Windows 10 tweaker.")]
+[assembly: AssemblyDescription("GUI for Windows tweaks.")]
 [assembly: AssemblyCopyright("Karl Köörna")]
 
 [assembly: AssemblyVersion("1.0.0.0")]
