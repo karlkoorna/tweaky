@@ -3,80 +3,74 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 
+enum TweakStatus {
+	ENABLED = 1,
+	DISABLED = 0,
+	INDETERMINATE = 2
+}
+
 class Tweak {
 	
 	[DllImport("kernel32")]
-	static extern int GetPrivateProfileString(string section, string key, string defaultValue, StringBuilder value, int size, string path);
+	private static extern int GetPrivateProfileString(string section, string key, string defaultValue, StringBuilder value, int size, string path);
 
-	string Path { get; set; }
-	string WorkingDirectory { get; set; }
+	private readonly string File;
+	private readonly string Directory;
 
-	public string State { get; set; }
-	public string Category { get; set; }
 	public string Name { get; set; }
 	public string Description { get; set; }
+	public string Category { get; set; }
+	
+	public TweakStatus Status;
 
-	public Tweak(string path) {
-		Path = path;
-		WorkingDirectory = System.IO.Path.GetFullPath(System.IO.Path.GetDirectoryName(path));
-
-		State = Status();
-		Category = path.Substring(7, path.Substring(7).IndexOf(@"\"));
-		Name = Read("Info", "Name");
-		Description = Read("Info", "Description");
+	public int State {
+		get => (int) Status;
 	}
 
-	/// <summary>
-	/// Read value from config file.
-	/// </summary>
-	string Read(string section, string key) {
+	public Tweak(string path) {
+		File = path;
+		Directory = System.IO.Path.GetFullPath(System.IO.Path.GetDirectoryName(path));
+
+		Name = Read("Info", "Name");
+		Description = Read("Info", "Description");
+		Category = path.Substring(7, path.Substring(7).LastIndexOf(@"\")).Replace(@"\", "/");
+		Status = Update();
+	}
+
+	string Read(string section, string key, string defaultValue = "") {
 		StringBuilder value = new StringBuilder(255);
-		GetPrivateProfileString(section, key, "", value, 255, Path);
+		GetPrivateProfileString(section, key, defaultValue, value, 255, File);
 		return value.ToString();
 	}
 
-	/// <summary>
-	/// Run toggle script.
-	/// </summary>
 	public void Toggle() {
 		ProcessStartInfo startInfo = new ProcessStartInfo() {
 			FileName = "cmd",
-			Arguments = "/C " + Read("Toggle", State == "Disabled" || State == "Indeterminate" ? "Enable" : "Disable").Replace("{}", WorkingDirectory),
-			WorkingDirectory = WorkingDirectory,
-			CreateNoWindow = true,
-			UseShellExecute = false
+			Arguments = "/C " + Read("Toggle", Status == TweakStatus.DISABLED || Status == TweakStatus.INDETERMINATE ? "Enable" : "Disable").Replace("{}", Directory),
+			WorkingDirectory = Directory,
+			UseShellExecute = false,
+			CreateNoWindow = true
 		};
 
-		// Add environmental variable indicating new state to child process.
-		startInfo.EnvironmentVariables["TWEAKY"] = (State == "Enabled" ? 0 : 1).ToString();
+		startInfo.EnvironmentVariables["TWEAKY"] = (1 - Status).ToString();
 
-		// Start and wait for script.
 		Process.Start(startInfo).WaitForExit();
-
-		// Update enabled state.
-		State = Status();
+		Status = Update();
 	}
 
-	/// <summary>
-	/// Run status script.
-	/// </summary>
-	public string Status() {
-		// Return indeterminate if status not configured.
-		if (Read("Status", "Command") == "") return "Indeterminate";
+	public TweakStatus Update() {
+		// Return indeterminate if status section not configured.
+		if (Read("Status", "Command") == "") return TweakStatus.INDETERMINATE;
 
-		// Start process.
 		Process process = Process.Start(new ProcessStartInfo("cmd", "/C " + Read("Status", "Command")) {
-			WorkingDirectory = WorkingDirectory,
-			CreateNoWindow = true,
+			RedirectStandardOutput = true,
+			WorkingDirectory = Directory,
 			UseShellExecute = false,
-			RedirectStandardOutput = true
+			CreateNoWindow = true
 		});
 
-		// Wait for process to finish.
 		process.WaitForExit();
-
-		// Compare output to Regex.
-		return (new Regex(Read("Status", "Value"))).IsMatch(Read("Status", "Check") == "output" ? process.StandardOutput.ReadToEnd().Replace("\r\n", "\n") : process.ExitCode.ToString()) ? "Enabled" : "Disabled";
+		return (new Regex(Read("Status", "Value"))).IsMatch(Read("Status", "Type") == "output" ? process.StandardOutput.ReadToEnd().Replace("\r\n", "\n") : process.ExitCode.ToString()) ? TweakStatus.ENABLED : TweakStatus.DISABLED;
 	}
 
 }

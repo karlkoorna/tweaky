@@ -5,12 +5,16 @@ GUI for Windows tweaks.
 
 Tweaks are defined by INI files stored in a category folder (including its subfolders) in the Tweaky folder next to the executable.
 
-Example:
+Example file structure:
 
-* Tweaky.exe
-* /Tweaky
-	* /[category]
-		* [tweak].ini
+```
+Tweaky.exe
+Tweaky/
+	[Category]/
+		[Tweak].ini
+		[Subcategory]/
+			[Tweak].ini
+```
 
 Tweak files consist of 3 sections:
 
@@ -43,6 +47,6 @@ The `Status` section defines the tweak's status in the UI. The command's output 
 ```ini
 [Status]
 Command=status.bat
-Check=code
-Value=1
+Type=output
+Value=(success|ok)
 ```

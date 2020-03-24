@@ -17,11 +17,11 @@ partial class FormMain {
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
 			this.DataGridViewTweaks = new System.Windows.Forms.DataGridView();
+			this.ComboBoxSearch = new System.Windows.Forms.ComboBox();
 			this.ColumnState = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.ColumnCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.ColumnDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.ComboBoxSearch = new System.Windows.Forms.ComboBox();
 			((System.ComponentModel.ISupportInitialize)(this.DataGridViewTweaks)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -74,19 +74,32 @@ partial class FormMain {
 			this.DataGridViewTweaks.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.DataGridViewTweaks_RowPrePaint);
 			this.DataGridViewTweaks.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DataGridViewTweaks_KeyDown);
 			// 
+			// ComboBoxSearch
+			// 
+			this.ComboBoxSearch.Dock = System.Windows.Forms.DockStyle.Top;
+			this.ComboBoxSearch.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.ComboBoxSearch.ItemHeight = 21;
+			this.ComboBoxSearch.Location = new System.Drawing.Point(0, 0);
+			this.ComboBoxSearch.Name = "ComboBoxSearch";
+			this.ComboBoxSearch.Size = new System.Drawing.Size(784, 29);
+			this.ComboBoxSearch.TabIndex = 2;
+			this.ComboBoxSearch.TabStop = false;
+			this.ComboBoxSearch.TextChanged += new System.EventHandler(this.ComboBoxSearch_TextChanged);
+			this.ComboBoxSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ComboBoxSearch_KeyDown);
+			// 
 			// ColumnState
 			// 
 			this.ColumnState.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
 			this.ColumnState.DataPropertyName = "State";
-			this.ColumnState.FalseValue = "Disabled";
+			this.ColumnState.FalseValue = "0";
 			this.ColumnState.HeaderText = "";
-			this.ColumnState.IndeterminateValue = "Indeterminate";
+			this.ColumnState.IndeterminateValue = "2";
 			this.ColumnState.Name = "ColumnState";
 			this.ColumnState.ReadOnly = true;
 			this.ColumnState.Resizable = System.Windows.Forms.DataGridViewTriState.True;
 			this.ColumnState.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
 			this.ColumnState.ThreeState = true;
-			this.ColumnState.TrueValue = "Enabled";
+			this.ColumnState.TrueValue = "1";
 			this.ColumnState.Width = 27;
 			// 
 			// ColumnCategory
@@ -114,19 +127,6 @@ partial class FormMain {
 			this.ColumnDescription.HeaderText = "Description";
 			this.ColumnDescription.Name = "ColumnDescription";
 			this.ColumnDescription.ReadOnly = true;
-			// 
-			// ComboBoxSearch
-			// 
-			this.ComboBoxSearch.Dock = System.Windows.Forms.DockStyle.Top;
-			this.ComboBoxSearch.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.ComboBoxSearch.ItemHeight = 21;
-			this.ComboBoxSearch.Location = new System.Drawing.Point(0, 0);
-			this.ComboBoxSearch.Name = "ComboBoxSearch";
-			this.ComboBoxSearch.Size = new System.Drawing.Size(784, 29);
-			this.ComboBoxSearch.TabIndex = 2;
-			this.ComboBoxSearch.TabStop = false;
-			this.ComboBoxSearch.TextChanged += new System.EventHandler(this.ComboBoxSearch_TextChanged);
-			this.ComboBoxSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ComboBoxSearch_KeyDown);
 			// 
 			// FormMain
 			// 

@@ -7,21 +7,18 @@ using System.Windows.Forms;
 
 partial class FormMain : Form {
 
-	SortableBindingList<Tweak> tweaks = new SortableBindingList<Tweak>();
+	private readonly SortableBindingList<Tweak> tweaks = new SortableBindingList<Tweak>();
 
 	public FormMain() {
 		InitializeComponent();
 	}
 
 	void FormMain_Load(object sender, EventArgs e) {
-		// Bind tweak list to view.
+		DataGridViewTweaks.AutoGenerateColumns = false;
 		DataGridViewTweaks.DataSource = tweaks;
 		
-		// Make columns sortable.
-		foreach (DataGridViewColumn column in DataGridViewTweaks.Columns) column.SortMode = DataGridViewColumnSortMode.Automatic;
-
-		// Populate tweak list from data folder.
-		foreach (string path in Directory.EnumerateFiles("Tweaky", "*.ini", SearchOption.AllDirectories)) {
+		// Populate list from data folder.
+		foreach (string path in Directory.EnumerateFiles("Tweaky", "*.ini", SearchOption.AllDirectories)) if (path.Split('\\').Length > 2) {
 			Tweak tweak = new Tweak(path);
 			tweaks.Add(tweak);
 
@@ -55,8 +52,6 @@ partial class FormMain : Form {
 
 	// Add keyboard shortcuts to tweaks.
 	private void DataGridViewTweaks_KeyDown(object sender, KeyEventArgs e) {
-		int index = DataGridViewTweaks.CurrentCell.RowIndex;
-
 		if (e.KeyCode == Keys.Tab) { // Move focus to search.
 			ComboBoxSearch.Select();
 			e.Handled = true;
@@ -67,9 +62,9 @@ partial class FormMain : Form {
 		}
 	}
 
-	// Recolor row if dirty.
+	// Color row depending on tweak status.
 	private void DataGridViewTweaks_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e) {
-		foreach (DataGridViewRow row in DataGridViewTweaks.Rows) if (((Tweak) row.DataBoundItem).State == "Enabled") {
+		foreach (DataGridViewRow row in DataGridViewTweaks.Rows) if (((Tweak) row.DataBoundItem).Status == TweakStatus.ENABLED) {
 			row.DefaultCellStyle.BackColor = Color.SeaGreen;
 			row.DefaultCellStyle.ForeColor = Color.White;
 		} else {
@@ -78,7 +73,7 @@ partial class FormMain : Form {
 		}
 	}
 
-	// Hide focused cell border.
+	// Hide cell focus outline.
 	private void DataGridViewTweaks_CellPainting(object sender, DataGridViewCellPaintingEventArgs e) {
 		e.Paint(e.CellBounds, DataGridViewPaintParts.All & ~DataGridViewPaintParts.Focus);
 		e.Handled = true;
