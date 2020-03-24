@@ -20,7 +20,7 @@ Tweak files consist of 3 sections:
 
 **Info**
 
-The `Info` section makes a tweak recognizable in the UI.
+Makes a tweak recognizable in the UI.
 
 ```ini
 [Info]
@@ -30,7 +30,9 @@ Description=Disables an annoying feature.
 
 **Toggle**
 
-The `Toggle` section defines commands to be executed on toggle. Before execution:
+Defines commands to be executed on toggle.
+
+Before toggling:
 1. `{}` will be replaced with an absolute path to the script directory.
 2. Environment variable `TWEAKY` with value `0` or `1` indicating new state will be set for the started process.
 
