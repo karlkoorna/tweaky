@@ -10,10 +10,10 @@ Example file structure:
 ```
 Tweaky.exe
 Tweaky/
-	[Category]/
-		[Tweak].ini
-		[Subcategory]/
-			[Tweak].ini
+    [Category]/
+        [Tweak].ini
+        [Subcategory]/
+            [Tweak].ini
 ```
 
 Tweak files consist of 3 sections:
