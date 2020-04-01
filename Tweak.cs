@@ -11,7 +11,7 @@ enum TweakStatus {
 
 class Tweak {
 	
-	[DllImport("kernel32")]
+	[DllImport("kernel32", CharSet = CharSet.Unicode)]
 	private static extern int GetPrivateProfileString(string section, string key, string defaultValue, StringBuilder value, int size, string path);
 
 	private readonly string File;
@@ -60,7 +60,7 @@ class Tweak {
 
 	public TweakStatus Update() {
 		// Return indeterminate if status section not configured.
-		if (Read("Status", "Command") == "") return TweakStatus.INDETERMINATE;
+		if (Read("Status", "Command").Trim().Length == 0) return TweakStatus.INDETERMINATE;
 
 		Process process = Process.Start(new ProcessStartInfo("cmd", "/C " + Read("Status", "Command")) {
 			RedirectStandardOutput = true,
