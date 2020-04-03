@@ -64,7 +64,7 @@ partial class FormMain : Form {
 
 	// Color row depending on tweak status.
 	private void DataGridViewTweaks_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e) {
-		foreach (DataGridViewRow row in DataGridViewTweaks.Rows) if (((Tweak) row.DataBoundItem).Status == TweakStatus.ENABLED) {
+		foreach (DataGridViewRow row in DataGridViewTweaks.Rows) if (((Tweak) row.DataBoundItem).Status == Tweak.TweakStatus.ENABLED) {
 			row.DefaultCellStyle.BackColor = Color.SeaGreen;
 			row.DefaultCellStyle.ForeColor = Color.White;
 		} else {

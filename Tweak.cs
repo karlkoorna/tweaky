@@ -3,14 +3,14 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 
-enum TweakStatus {
-	ENABLED = 1,
-	DISABLED = 0,
-	INDETERMINATE = 2
-}
-
 class Tweak {
-	
+
+	public enum TweakStatus {
+		ENABLED = 1,
+		DISABLED = 0,
+		INDETERMINATE = 2
+	}
+
 	[DllImport("kernel32", CharSet = CharSet.Unicode)]
 	private static extern int GetPrivateProfileString(string section, string key, string defaultValue, StringBuilder value, int size, string path);
 
