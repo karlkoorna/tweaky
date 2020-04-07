@@ -20,7 +20,7 @@ class Tweak {
 	public string Name { get; set; }
 	public string Description { get; set; }
 	public string Category { get; set; }
-	
+
 	public TweakStatus Status;
 
 	public int State {
