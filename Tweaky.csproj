@@ -11,11 +11,11 @@
     <Platforms>x64</Platforms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutputPath>Bin\Release\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutputPath>Bin\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
