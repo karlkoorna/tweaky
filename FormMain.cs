@@ -18,8 +18,8 @@ partial class FormMain : Form {
 		DataGridViewTweaks.DataSource = tweaks;
 		
 		// Populate list from data folder.
-		foreach (string path in Directory.EnumerateFiles("Tweaky", "*.ini", SearchOption.AllDirectories)) if (path.Split('\\').Length > 2) {
-			Tweak tweak = new Tweak(path);
+		foreach (var path in Directory.EnumerateFiles("Tweaky", "*.ini", SearchOption.AllDirectories)) if (path.Split('\\').Length > 2) {
+			var tweak = new Tweak(path);
 			tweaks.Add(tweak);
 
 			if (!ComboBoxSearch.Items.Contains(tweak.Category)) ComboBoxSearch.Items.Add(tweak.Category);
@@ -35,7 +35,7 @@ partial class FormMain : Form {
 
 	// Search tweaks.
 	void ComboBoxSearch_TextChanged(object sender, EventArgs e) {
-		string query = ComboBoxSearch.Text.Trim().ToLower();
+		var query = ComboBoxSearch.Text.Trim().ToLower();
 		DataGridViewTweaks.DataSource = query == "" ? tweaks : new BindingList<Tweak>(tweaks.Where((tweak) => tweak.Category.ToLower().Contains(query) || tweak.Name.ToLower().Contains(query) || tweak.Description.ToLower().Contains(query)).ToList());
 	}
 
@@ -52,19 +52,23 @@ partial class FormMain : Form {
 
 	// Add keyboard shortcuts to tweaks.
 	private void DataGridViewTweaks_KeyDown(object sender, KeyEventArgs e) {
-		if (e.KeyCode == Keys.Tab) { // Move focus to search.
-			ComboBoxSearch.Select();
-			e.Handled = true;
-		} else if (e.KeyCode == Keys.Space || e.KeyCode == Keys.Enter) { // Toggle tweak.
-			((Tweak) DataGridViewTweaks.CurrentRow.DataBoundItem).Toggle();
-			DataGridViewTweaks.Refresh();
-			e.Handled = true;
+		switch (e.KeyCode) {
+			case Keys.Space:
+			case Keys.Enter: // Toggle tweak.
+				((Tweak) DataGridViewTweaks.CurrentRow.DataBoundItem).Toggle();
+				DataGridViewTweaks.Refresh();
+				e.Handled = true;
+				break;
+			case Keys.Tab: // Move focus to search.
+				ComboBoxSearch.Select();
+				e.Handled = true;
+				break;
 		}
 	}
 
 	// Color row depending on tweak status.
 	private void DataGridViewTweaks_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e) {
-		foreach (DataGridViewRow row in DataGridViewTweaks.Rows) if (((Tweak) row.DataBoundItem).Status == Tweak.TweakStatus.ENABLED) {
+		foreach (DataGridViewRow row in DataGridViewTweaks.Rows) if (((Tweak) row.DataBoundItem).Status == Tweak.TweakStatus.Enabled) {
 			row.DefaultCellStyle.BackColor = Color.SeaGreen;
 			row.DefaultCellStyle.ForeColor = Color.White;
 		} else {

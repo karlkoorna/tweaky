@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 
 class SortableBindingList<T> : BindingList<T> {
-
-	PropertyDescriptor sortProperty;
-	ListSortDirection sortDirection;
-	bool isSorted = false;
+	
+	private PropertyDescriptor sortProperty;
+	private ListSortDirection sortDirection;
+	private bool isSorted = false;
 	
 	protected override void ApplySortCore(PropertyDescriptor property, ListSortDirection direction) {
 		((List<T>) Items).Sort(new Comparison<T>((T x, T y) => ((IComparable) property.GetValue(x)).CompareTo(property.GetValue(y)) * (direction == ListSortDirection.Ascending ? -1 : 1)));
@@ -22,20 +22,12 @@ class SortableBindingList<T> : BindingList<T> {
 		isSorted = false;
 	}
 
-	protected override bool SupportsSortingCore {
-		get { return true; }
-	}
+	protected override bool SupportsSortingCore => true;
 
-	protected override ListSortDirection SortDirectionCore {
-		get { return sortDirection; }
-	}
+	protected override ListSortDirection SortDirectionCore => sortDirection;
 
-	protected override PropertyDescriptor SortPropertyCore {
-		get { return sortProperty; }
-	}
+	protected override PropertyDescriptor SortPropertyCore => sortProperty;
 
-	protected override bool IsSortedCore {
-		get { return isSorted; }
-	}
-
+	protected override bool IsSortedCore => isSorted;
+	
 }

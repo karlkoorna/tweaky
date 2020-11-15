@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -6,30 +7,28 @@ using System.Text.RegularExpressions;
 class Tweak {
 
 	public enum TweakStatus {
-		ENABLED = 1,
-		DISABLED = 0,
-		INDETERMINATE = 2
+		Enabled = 1,
+		Disabled = 0,
+		Indeterminate = 2
 	}
 
 	[DllImport("kernel32", CharSet = CharSet.Unicode)]
 	private static extern int GetPrivateProfileString(string section, string key, string defaultValue, StringBuilder value, int size, string path);
 
-	private readonly string File;
-	private readonly string Directory;
+	private readonly string PathDirectory;
+	private readonly string PathFile;
 
-	public string Name { get; set; }
-	public string Description { get; set; }
-	public string Category { get; set; }
+	public string Name { get; }
+	public string Description { get; }
+	public string Category { get; }
 
 	public TweakStatus Status;
 
-	public int State {
-		get => (int) Status;
-	}
+	public int State => (int) Status;
 
 	public Tweak(string path) {
-		File = path;
-		Directory = System.IO.Path.GetFullPath(System.IO.Path.GetDirectoryName(path));
+		PathDirectory = System.IO.Path.GetFullPath(Path.GetDirectoryName(path));
+		PathFile = path;
 
 		Name = Read("Info", "Name");
 		Description = Read("Info", "Description");
@@ -37,17 +36,17 @@ class Tweak {
 		Status = Update();
 	}
 
-	string Read(string section, string key, string defaultValue = "") {
-		StringBuilder value = new StringBuilder(255);
-		GetPrivateProfileString(section, key, defaultValue, value, 255, File);
+	private string Read(string section, string key, string defaultValue = "") {
+		var value = new StringBuilder(255);
+		GetPrivateProfileString(section, key, defaultValue, value, 255, PathFile);
 		return value.ToString();
 	}
 
 	public void Toggle() {
-		ProcessStartInfo startInfo = new ProcessStartInfo() {
+		var startInfo = new ProcessStartInfo() {
 			FileName = "cmd",
-			Arguments = "/C " + Read("Toggle", Status == TweakStatus.DISABLED || Status == TweakStatus.INDETERMINATE ? "Enable" : "Disable").Replace("{}", Directory),
-			WorkingDirectory = Directory,
+			Arguments = "/C " + Read("Toggle", Status == TweakStatus.Disabled || Status == TweakStatus.Indeterminate ? "Enable" : "Disable").Replace("{}", PathDirectory),
+			WorkingDirectory = PathDirectory,
 			UseShellExecute = false,
 			CreateNoWindow = true
 		};
@@ -58,19 +57,19 @@ class Tweak {
 		Status = Update();
 	}
 
-	public TweakStatus Update() {
+	private TweakStatus Update() {
 		// Return indeterminate if status section not configured.
-		if (Read("Status", "Command").Trim().Length == 0) return TweakStatus.INDETERMINATE;
+		if (Read("Status", "Command").Trim().Length == 0) return TweakStatus.Indeterminate;
 
-		Process process = Process.Start(new ProcessStartInfo("cmd", "/C " + Read("Status", "Command")) {
+		var process = Process.Start(new ProcessStartInfo("cmd", "/C " + Read("Status", "Command")) {
 			RedirectStandardOutput = true,
-			WorkingDirectory = Directory,
+			WorkingDirectory = PathDirectory,
 			UseShellExecute = false,
 			CreateNoWindow = true
 		});
 
 		process.WaitForExit();
-		return (new Regex(Read("Status", "Value"))).IsMatch(Read("Status", "Type") == "output" ? process.StandardOutput.ReadToEnd().Replace("\r\n", "\n") : process.ExitCode.ToString()) ? TweakStatus.ENABLED : TweakStatus.DISABLED;
+		return (new Regex(Read("Status", "Value"))).IsMatch(Read("Status", "Type") == "output" ? process.StandardOutput.ReadToEnd().Replace("\r\n", "\n") : process.ExitCode.ToString()) ? TweakStatus.Enabled : TweakStatus.Disabled;
 	}
 
 }
